@@ -1,0 +1,28 @@
+.navbar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 90px;
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 60px;
+    font-size: 20px;
+
+}
+
+.nav-connect {
+    padding: 20px 40px;
+    border-radius: 50px;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+
+.navbar img {
+  width: 150px; 
+  height: auto;
+}

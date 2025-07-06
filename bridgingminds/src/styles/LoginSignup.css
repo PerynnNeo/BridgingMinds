@@ -1,0 +1,50 @@
+.container {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background: white;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.header .text {
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.header .underline {
+  width: 50px;
+  height: 3px;
+  background: #2563eb;
+  margin: 8px auto 20px;
+  border-radius: 2px;
+}
+
+.inputs .input {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  padding: 10px 15px;
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+}
+
+.inputs .input:hover {
+  border-color: #2563eb;
+}
+
+.inputs .input .icon {
+  margin-right: 12px;
+  color: #2563eb;
+  font-size: 1.2rem;
+}
+
+.inputs .input input {
+  border: none;
+  outline: none;
+  flex-grow: 1;
+  font-size: 1rem;
+}
