@@ -1,0 +1,390 @@
+/* TranslationPage.css */
+.translation-page {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.translation-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* Header Styles */
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.header-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.header-icon .icon {
+  width: 2rem;
+  height: 2rem;
+  color: #4f46e5;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  color: #6b7280;
+  max-width: 32rem;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+@media (min-width: 768px) {
+  .language-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.language-option {
+  display: flex;
+  flex-direction: column;
+}
+
+.language-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+.language-select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #d1d5db;
+  font-size: 1rem;
+  background: white;
+  transition: all 0.2s ease;
+}
+
+.language-select:focus {
+  outline: none;
+  border-color: transparent;
+  box-shadow: 0 0 0 2px #4f46e5;
+}
+
+/* Recording Interface Styles */
+.recording-section {
+  max-width: 32rem;
+  margin: 0 auto 2rem;
+}
+
+.recording-card {
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  border: 1px solid #f3f4f6;
+  padding: 2rem;
+  text-align: center;
+}
+
+.recording-button-container {
+  margin-bottom: 1.5rem;
+}
+
+.recording-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+  font-weight: 600;
+  font-size: 1.25rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  transform: scale(1);
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  color: white;
+  box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.4);
+}
+
+.recording-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.4);
+}
+
+.recording-button.recording {
+  background: #ef4444;
+  animation: pulse 2s infinite;
+  box-shadow: 0 10px 15px -3px rgba(239, 68, 68, 0.4);
+}
+
+.recording-button.recording:hover {
+  background: #dc2626;
+  box-shadow: 0 20px 25px -5px rgba(239, 68, 68, 0.4);
+}
+
+.recording-button.processing {
+  background: #9ca3af;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.recording-button.processing:hover {
+  transform: scale(1);
+}
+
+.button-icon {
+  width: 2rem;
+  height: 2rem;
+}
+
+.loading-spinner {
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid transparent;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.recording-status {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.status-recording {
+  color: #ef4444;
+  font-weight: 600;
+}
+
+.status-processing {
+  color: #4f46e5;
+  font-weight: 600;
+}
+
+.status-idle {
+  color: #6b7280;
+}
+
+/* Results Styles */
+.results-section {
+  max-width: 64rem;
+  margin: 0 auto;
+}
+
+.results-card {
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  border: 1px solid #f3f4f6;
+  overflow: hidden;
+}
+
+.result-item {
+  padding: 1.5rem;
+}
+
+.result-item.original {
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.result-item.translation {
+  background: linear-gradient(135deg, #eef2ff 0%, #f3e8ff 100%);
+}
+
+.result-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.result-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+}
+
+.action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.action-button {
+  padding: 0.5rem;
+  color: #6b7280;
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  transition: color 0.2s ease;
+}
+
+.action-button:hover {
+  color: #4f46e5;
+}
+
+.action-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.result-text {
+  color: #374151;
+  font-size: 1.125rem;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.result-text.translated {
+  color: #1f2937;
+  font-weight: 500;
+}
+
+.result-actions {
+  padding: 1.5rem;
+  background: #f9fafb;
+  text-align: center;
+}
+
+.clear-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: #f3f4f6;
+  color: #374151;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clear-button:hover {
+  background: #e5e7eb;
+}
+
+.clear-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* Instructions Styles */
+.instructions-section {
+  max-width: 32rem;
+  margin: 3rem auto 0;
+}
+
+.instructions-card {
+  background: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #f3f4f6;
+  padding: 1.5rem;
+}
+
+.instructions-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 1rem 0;
+}
+
+.instructions-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.instruction-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  color: #6b7280;
+}
+
+.instruction-number {
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  background: #eef2ff;
+  color: #4f46e5;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+  
+  .title {
+    font-size: 2.25rem;
+  }
+  
+  .subtitle {
+    font-size: 1.125rem;
+  }
+  
+  .recording-button {
+    width: 6rem;
+    height: 6rem;
+  
+  .button-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  
+  .loading-spinner {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
