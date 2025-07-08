@@ -1,36 +1,25 @@
 const express = require("express");
 const cors = require("cors");
+const mongoose = require("mongoose");
+require("dotenv").config();
+const authRoutes = require("./routes/auth");
+
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-// MongoDB connection setup
-const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://BridgingMinds:Hzr5LSUYpkVyAOve@cluster0.ojzbxix.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+// MongoDB connection setup using Mongoose
+const uri = process.env.MONGODB_URI;
 
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
-});
+mongoose.connect(uri)
+  .then(() => console.log("✅ Connected to MongoDB!"))
+  .catch((err) => console.error("Failed to connect to MongoDB", err));
 
-async function connectToMongoDB() {
-  try {
-    await client.connect();
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
-    // You can now use `client` to interact with your database
-  } catch (err) {
-    console.error("Failed to connect to MongoDB", err);
-  }
-}
+// Auth routes
+app.use("/api/auth", authRoutes);
 
-connectToMongoDB();
-
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`✅ Server running at http://localhost:${PORT}`);
 });

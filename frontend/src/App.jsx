@@ -1,10 +1,16 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Home from './components/Home';
 import LoginSignup from './components/LoginSignUp/login_signup';
 import Sidebar from './components/Navbar/Sidebar';
 import PlayLearnPage from './components/PlayLearn'; 
 import TranslationPage from './components/Translating';
 import PersonalDashboard from './components/PersonalDashboard';
+
+// PrivateRoute component to protect routes
+function PrivateRoute({ children }) {
+  const token = localStorage.getItem('token');
+  return token ? children : <Navigate to="/login" replace />;
+}
 
 function App() {
   return (
@@ -13,12 +19,29 @@ function App() {
         <Sidebar />
 
         {/* Route container needs to grow and fill remaining space */}
-      <div style={{ marginLeft: '220px', padding: '24px', width: '100%' }}>
+        <div style={{ marginLeft: '220px', padding: '24px', width: '100%' }}>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/play-learn" element={<PlayLearnPage />} /> 
-            <Route path="/translate" element={<TranslationPage />} />
-            <Route path="/PersonalDashboard" element={<PersonalDashboard />} />
+            <Route path="/login" element={<LoginSignup />} />
+            <Route path="/" element={
+              <PrivateRoute>
+                <Home />
+              </PrivateRoute>
+            } />
+            <Route path="/play-learn" element={
+              <PrivateRoute>
+                <PlayLearnPage />
+              </PrivateRoute>
+            } />
+            <Route path="/translate" element={
+              <PrivateRoute>
+                <TranslationPage />
+              </PrivateRoute>
+            } />
+            <Route path="/PersonalDashboard" element={
+              <PrivateRoute>
+                <PersonalDashboard />
+              </PrivateRoute>
+            } />
           </Routes>
         </div>
       </div>
