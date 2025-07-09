@@ -1,42 +1,58 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FaEnvelope, FaLock } from 'react-icons/fa';
-
-const API_URL = 'http://localhost:3000/api/auth'; // Adjust if backend runs elsewhere
+import { useAuth } from '../../contexts/AuthContext.jsx';
+import '../../styles/LoginSignup.css';
 
 const LoginSignup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSignUp, setIsSignUp] = useState(true);
-  const [message, setMessage] = useState('');
   const [name, setName] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  const { register, login, error, setError } = useAuth();
+  const navigate = useNavigate();
+
+  // Clear error when switching between login/signup
+  useEffect(() => {
+    setError(null);
+  }, [isSignUp, setError]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMessage('');
-    const endpoint = isSignUp ? '/register' : '/login';
-    const payload = isSignUp ? { name, email, password } : { email, password };
+    setIsSubmitting(true);
+    setError(null);
+
     try {
-      const res = await fetch(`${API_URL}${endpoint}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-      const data = await res.json();
-      if (res.ok) {
-        if (isSignUp) {
-          setMessage('Registration successful! You can now sign in.');
+      let result;
+      
+      if (isSignUp) {
+        result = await register({ name, email, password });
+        if (result.success) {
+          // After successful registration, switch to login mode
           setIsSignUp(false);
-        } else {
-          setMessage('Login successful!');
-          localStorage.setItem('token', data.token);
-          // Redirect or update auth state here
+          setEmail('');
+          setPassword('');
+          setMessage('Registration successful! Please sign in.');
         }
       } else {
-        setMessage(data.message || 'Something went wrong.');
+        result = await login({ email, password });
+        if (result.success) {
+          // Navigate to home page after successful login
+          navigate('/');
+        }
       }
     } catch (err) {
-      setMessage('Server error.');
+      console.error('Auth error:', err);
+    } finally {
+      setIsSubmitting(false);
     }
+  };
+
+  const setMessage = (msg) => {
+    // This is a simple message display - you might want to use a toast library
+    console.log(msg);
   };
 
   return (
@@ -54,6 +70,7 @@ const LoginSignup = () => {
               value={name}
               onChange={e => setName(e.target.value)}
               required
+              disabled={isSubmitting}
             />
           </div>
         )}
@@ -65,6 +82,7 @@ const LoginSignup = () => {
             value={email}
             onChange={e => setEmail(e.target.value)}
             required
+            disabled={isSubmitting}
           />
         </div>
         <div className="input">
@@ -75,20 +93,21 @@ const LoginSignup = () => {
             value={password}
             onChange={e => setPassword(e.target.value)}
             required
+            disabled={isSubmitting}
           />
         </div>
-        <button type="submit" className="submit-btn">
-          {isSignUp ? 'Sign Up' : 'Sign In'}
+        <button type="submit" className="submit-btn" disabled={isSubmitting}>
+          {isSubmitting ? 'Processing...' : (isSignUp ? 'Sign Up' : 'Sign In')}
         </button>
       </form>
       <div className="toggle-auth">
         {isSignUp ? (
-          <span>Already have an account? <button onClick={() => setIsSignUp(false)}>Sign In</button></span>
+          <span>Already have an account? <button onClick={() => setIsSignUp(false)} disabled={isSubmitting}>Sign In</button></span>
         ) : (
-          <span>Don't have an account? <button onClick={() => setIsSignUp(true)}>Sign Up</button></span>
+          <span>Don't have an account? <button onClick={() => setIsSignUp(true)} disabled={isSubmitting}>Sign Up</button></span>
         )}
       </div>
-      {message && <div className="message">{message}</div>}
+      {error && <div className="message error">{error}</div>}
     </div>
   );
 };
