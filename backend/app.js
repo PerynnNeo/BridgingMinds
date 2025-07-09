@@ -1,36 +1,55 @@
-const express = require("express");
-const cors = require("cors");
+
+// backend/server.js - Add the missing screening route
+require('dotenv').config();
+const express = require('express');
+const cors = require('cors');
+const connectDB = require('./config/database');
+
+
+
+
+// Import routes
+const authRoutes = require('./routes/auth'); //Auth Route
+
+// Connect to database
+connectDB();
+
 const app = express();
 
-app.use(cors());
-app.use(express.json());
+// Trust proxy for IP address tracking (needed for quiz analytics)
+app.set('trust proxy', true);
 
-// MongoDB connection setup
-const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://BridgingMinds:Hzr5LSUYpkVyAOve@cluster0.ojzbxix.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+// Middleware
+app.use(cors({
+  origin: 'http://localhost:8000', // React app url
+  credentials: true
+}));
 
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
+app.use(express.json()); // Parse JSON bodies
+app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
+
+// Routes
+app.use('/api/auth', authRoutes);
+
+// Basic route for testing
+app.get('/', (req, res) => {
+  res.json({ message: 'Backend is running' });
 });
 
-async function connectToMongoDB() {
-  try {
-    await client.connect();
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
-    // You can now use `client` to interact with your database
-  } catch (err) {
-    console.error("Failed to connect to MongoDB", err);
-  }
-}
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ message: 'Something went wrong' });
+});
 
-connectToMongoDB();
+// Handle 404 routes - Fixed the wildcard route
+app.use((req, res) => {
+  res.status(404).json({ message: 'Route not found' });
+});
 
-const PORT = 3000;
+const PORT = process.env.PORT || 5000;
+
 app.listen(PORT, () => {
-  console.log(`✅ Server running at http://localhost:${PORT}`);
+  console.log(`Server running on port ${PORT}`);
+
 });

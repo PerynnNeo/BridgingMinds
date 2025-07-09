@@ -1,0 +1,139 @@
+.sidebar {
+  width: 220px;
+  height: 100vh;
+  position: fixed; /* <-- Add this */
+  top: 0;
+  left: 0;
+  background: linear-gradient(to bottom, #f5f5ff, #e3e8ff);
+  padding: 20px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  font-family: 'Quicksand', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 1000; /* ensure it's above other elements */
+}
+
+.logo h2 {
+  font-size: 20px;
+  color: #3c3f75;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px; 
+  margin-bottom: 30px;
+  justify-content: flex-start;
+  padding-left: 4px;
+}
+
+.logo-image {
+  width: 130px;
+  object-fit: contain;
+}
+
+/* User Info Section */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 10px;
+  margin-bottom: 20px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+  border: 1px solid rgba(60, 63, 117, 0.2);
+}
+
+.user-icon {
+  font-size: 24px;
+  color: #3c3f75;
+}
+
+.user-name {
+  font-size: 14px;
+  color: #3c3f75;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1;
+}
+.sidebar-menu li a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  padding: 18px 10px;
+  border-radius: 8px;
+  font-size: 18px; 
+    color: #3c3f75;
+
+}
+
+.sidebar-menu li a:hover,
+.sidebar-menu li .active {
+  background-color: #dce1ff;
+  font-weight: bold;
+}
+
+.language-switcher {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.language-switcher button {
+  flex: 1;
+  padding: 8px;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.language-switcher button:hover {
+  background-color: #edf0ff;
+}
+
+/* Logout Section */
+.logout-section {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid rgba(60, 63, 117, 0.2);
+}
+
+.logout-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px;
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.logout-btn:hover {
+  background-color: #ff5252;
+}
+
+.logout-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
